@@ -1,0 +1,161 @@
+@model Pet_Get.Models.DTOs.PostsDTO
+@{
+    ViewData["Title"] = "Pets";
+}
+
+<section class="h-screen scroll px-5">
+    <section style="height: 100%">
+        <h1 class="text-pink fw-bold text-center">Pick a buddie!</h1>
+        <div class="d-flex justify-content-center mb-5">
+            <form asp-controller="Post" method="get" asp-action="Posts" class="form-control-lg d-flex align-items-center gap-2">
+                <input type="text" asp-for="search" placeholder="Search..." class="rounded-3 form-control-lg"/>
+                <button type="submit" class="btn btn-outline-primary text-pink">Search</button>
+            </form>
+        </div>
+        @* CARDS *@
+        <div class="d-flex gap-5 flex-wrap justify-content-center">
+
+            @foreach (var post in Model.Posts)
+            {
+                <a class="custom-container text-pink overflow-hidden text-decoration-none hover-light" style="cursor: pointer" asp-controller="Post" asp-action="Post" asp-route-id="@post.Id">
+                    <div class="custom-card overflow-hidden">
+                        <div class="custom-card-head d-flex justify-content-center align-items-center overflow-hidden">
+                            <div class="custom-animal-detail overflow-hidden position-relative d-flex justify-content-center align-items-center">
+                                <img src="@post.Image" alt="Pet Image" width="100%" height="100%">
+                            </div>
+                            <div class="custom-animal-title" style="position: absolute; top: 0; right: 15px">
+                                <span class="custom-badge"> @post.AnimalType.Type</span>
+                            </div>
+                        </div>
+                        <div class="custom-card-body overflow-hidden">
+                            <div class="custom-animal-info">
+                                <div class="text-wrap overflow-hidden text-center" style="height: 100px; width: 300px; text-wrap: normal">@post.Title </div>
+                            </div>
+                            <div class="custom-animal-discription">
+                                <div class="text-center">@post.Description</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            }
+            @* CARDS *@
+        </div>
+
+    </section>
+</section>
+
+<style>
+   .custom-container {
+        width: 300px;
+        overflow: hidden;
+    }
+    
+   .custom-card {
+        border-radius: 25px;
+        border: 1px solid #F1EAFF;
+    }
+    
+   .custom-card-head {
+        position: relative;
+        height: 200px;
+        background: #E5D4FF;
+    }
+    
+   .custom-animal-img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.2);
+        margin-bottom: 10px;
+        object-fit: cover;
+    }
+    
+   .custom-animal-detail {
+        font-size: 11px;
+        color: #756AB6;
+        text-align: center;
+    }
+    
+   .custom-animal-detail h2 {
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 2px;
+        padding-bottom: 10px;
+        text-transform: uppercase;
+    }
+    
+   .custom-animal-detail p {
+        font-size: 12px;
+        font-weight: 200;
+        letter-spacing: 2px;
+        font-style: italic;
+    }
+    
+   .custom-card-body {
+        height: 310px;
+        width: 300px;
+        background: #756AB6;
+        overflow: hidden;
+        border: none;
+        /*border: 1px solid white;*/
+    }
+    
+   .custom-animal-title h1 {
+        padding: 20px 20px 5px 20px;
+        display: block;
+        font-size: 17px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    
+   .custom-badge {
+        font-size: 12px;
+        font-weight: 700;
+        color: #F1EAFF;
+        background: #756AB6;
+        padding: 2px 5px;
+        border-radius: 4px;
+    }
+    
+   .custom-animal-caption {
+        display: block;
+        padding: 0 20px;
+        font-size: 10px;
+        font-weight: 400;
+        font-style: italic;
+    }
+    
+   .custom-animal-info h4 {
+        font-size: 12px;
+        padding: 0 21px;
+        margin-top: 15px;
+        padding-bottom: 10px;
+        text-transform: uppercase;
+    }
+    
+   .custom-ul {
+        list-style: none;
+        font-size: 12px;
+        padding: 0 30px;
+    }
+    
+   .custom-labels {
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #404040;
+    }
+    
+   .custom-animal-discription h4 {
+        font-size: 12px;
+        padding: 0 21px;
+        margin-top: 20px;
+        padding-bottom: 10px;
+        text-transform: uppercase;
+    }
+    
+   .custom-animal-discription p {
+        font-size: 12px;
+        padding: 0 28px;
+    }
+</style>

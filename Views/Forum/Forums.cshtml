@@ -1,0 +1,15 @@
+﻿@model List<Forum>
+<div class="h-screen d-flex flex-column justify-content-center align-items-center position-relative pt-5">
+    <a class="position-absolute btn background-secondary" style="top: 25px; right: 25px" asp-controller="Forum" asp-action="AddForum">Create</a>
+    @if (Model.Count == 0)
+    {
+        <h1 class="text-pink fw-bold">No Forums</h1>
+    }
+    @foreach (var forum in @Model)
+    {
+        <a class="w-50 background-secondary mb-5 p-5 text-decoration-none hover-light" style="height: 250px; border-radius: 30px" asp-controller="Forum" asp-action="Forum" asp-route-postId="@forum.Id">
+            <h1 class="text-dark-purple d-flex flex-column">@forum.Title <span style="font-size: 10px">@forum.createdAt</span></h1>
+            <p class="text-dark-purple">@forum.Description</p>
+        </a>
+    }
+</div>

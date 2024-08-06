@@ -1,0 +1,68 @@
+﻿@model Pet_Get.Models.DTOs.AdminDashboardDTO
+<div class="p-5">
+    <div class="d-flex align-items-center gap-5 mb-5">
+        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+    </div>
+    <div class="d-flex justify-content-center align-items-center flex-column">
+
+        @if (@Model.pendingPostsCount == 0)
+        {
+            <h1>No Pending Posts</h1>
+        }
+            <div id="chartContainer3" style="height: 370px; width: 50%;"></div>
+    </div>
+
+</div>
+@* <link rel="stylesheet" href="~/css/details.css" asp-append-version="true"/> *@
+<script defer src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+<script>
+window.onload = function () {
+    var chart = new CanvasJS.Chart("chartContainer", {
+        theme: "dark2",
+        animationEnabled: true,
+        title: {
+            text: "Animal Types",
+        },
+        data: [{
+            type: "doughnut",
+            markerSize: 0,
+            indexLabel: "{label} - #percent%",
+    		toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+            dataPoints: @Html.Raw(ViewBag.DataPoints)
+        }]
+    });
+    var chart2 = new CanvasJS.Chart("chartContainer2", {
+        theme: "dark2",
+        animationEnabled: true,
+        title: {
+            text: "No. of Users",
+        },
+        data: [{
+            type: "doughnut",
+            markerSize: 0,
+            indexLabel: "{y} {label}",
+    		toolTipContent: "<b>{label}:</b> {y} User",
+            dataPoints: [{label: "Users", y: @Model.userCount}]
+        }]
+    });
+    var chart3 = new CanvasJS.Chart("chartContainer3", {
+        theme: "dark2",
+        animationEnabled: true,
+        title: {
+            text: "Pending Posts",
+        },
+        data: [{
+            type: "doughnut",
+            markerSize: 0,
+            indexLabel: "{y} {label}",
+    		toolTipContent: "<b>{label}:</b> {y} Posts",
+            dataPoints: [{label: "Posts", y: @Model.pendingPostsCount}]
+        }]
+    });
+    
+    chart.render();
+    chart2.render();
+    chart3.render();
+}
+</script>

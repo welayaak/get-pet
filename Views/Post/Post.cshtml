@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model Post
+@inject UserManager<AppUser> _UserManager
+
+<section class="h-screen d-flex justify-content-center align-items-center">
+    <div class="w-50 h-50 background-secondary  p-3 d-flex align-items-center position-relative" style="border-radius: 25px">
+        <div style="position: absolute; top: 20px; right: 20px;">
+            @if (User.IsInRole("Admin"))
+            {
+                if (@Model.Approved)
+                {
+                    <a class="btn btn-primary" asp-controller="Post" asp-action="EditPost" asp-route-id="@Model.Id">
+                        Edit
+                    </a>
+                    <a class="btn btn-danger" asp-controller="Post" asp-action="DeletePost" asp-route-id="@Model.Id">
+                        Delete
+                    </a>
+                }
+                else
+                {
+                    <a class="btn btn-primary" asp-controller="Post" asp-action="ApprovePost" asp-route-id="@Model.Id">
+                        Approve
+                    </a>
+                    <a class="btn btn-danger" asp-controller="Post" asp-action="RejectPost" asp-route-id="@Model.Id">
+                        Reject
+                    </a>
+                }
+            }
+            @if (@Model.Bookmarks.Any() && @Model.Bookmarks.Any(b => b.UserId.Equals(_UserManager.GetUserId(User))))
+            {
+                <a asp-controller="Post" asp-action="RemoveBookmarkPost" asp-route-postId="@Model.Id" class="text-dark-purple">
+                    <i class="fa-solid fa-heart"></i>
+                </a>
+            }
+            else
+            {
+                <a asp-controller="Post" asp-action="BookmarkPost" asp-route-postId="@Model.Id" class="text-dark-purple">
+                    <i class="fa-regular fa-heart"></i>
+                </a>
+            }
+
+        </div>
+        <div class="w-50 h-100 position-relative d-flex align-items-center">
+            <div class="position-absolute border-0 overflow-hidden d-flex justify-content-center align-items-center" style="width: 250px; height: 250px; left: -60px; border-radius: 25px">
+                @* <img src="@Model.Image" class="h-100 w-100" alt="Pet Picture"/> *@
+                <img src="@Model.Image" alt="Pet Image" width="100%" height="100%"/>
+            </div>
+        </div>
+        <div class="w-75" style="height: 250px;">
+            <h1 style="margin-bottom: 0" class="text-dark-purple fw-bold">@Model.Title</h1>
+            @if (Model.editedAt == null)
+            {
+                <span style="font-size: 10px">@Model.createdAt</span>
+            }
+            else
+            {
+                <span style="font-size: 10px">Edited at: @Model.editedAt</span>
+            }
+            <p>@Model.Description</p>
+        </div>
+    </div>
+</section>

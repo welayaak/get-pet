@@ -1,0 +1,58 @@
+﻿@model Pet_Get.Models.DTOs.CreatePostDTO
+<div class="d-flex justify-content-center align-items-start h-screen pt-5">
+    <form asp-controller="Post" asp-action="RequestPost" method="post" enctype="multipart/form-data" class="form-control-lg background-secondary d-flex flex-column align-items-center w-75 text-dark-purple" style="padding: 50px; border-radius: 30px">
+        <div class="background-secondary mb-3 d-flex justify-content-center border border-secondary" style="width: 250px; height: 250px;">
+            <img id="ImagePreview" src="#" alt="Image Preview" style="width: 100%; height: auto;"/>
+        </div>
+        <div class="mb-3 d-flex">
+            <input id="ImageUpload" type="file" name="image" asp-for="Image"/>
+        </div>
+        <div class="d-flex w-50 flex-wrap gap-2 justify-content-center">
+            <div class="mb-3">
+                <input asp-for="Title" placeholder="Title" class="w-100 form-control-lg border-0"/>
+            </div>
+            <div class="mb-3">
+                <input asp-for="Description" placeholder="Description" class="w-100 form-control-lg border-0"/>
+            </div>
+            <div class="mb-3">
+                <input asp-for="PhoneNumber" placeholder="PhoneNumber" class="w-100 form-control-lg border-0"/>
+            </div>
+            <div class="mb-3">
+                <input asp-for="Email" placeholder="Email" class="w-100 form-control-lg border-0"/>
+            </div>
+        </div>
+        <div class="d-flex w-50 flex-wrap gap-2 justify-content-center">
+
+            <div class="mb-3">
+                <div class="d-flex justify-content-center">
+                    <label for="SelectedAnimalTypeId">Select Animal Type</label>
+                </div>
+
+                <select asp-for="AnimalTypeId" class="w-100 form-control-lg border-0 bg-white" placeholder="AnimalTypeId" asp-items="@(new SelectList(Model.AnimalTypes, "Id", "Type"))">
+                    <option value="0">-- Select an animal type --</option>
+                </select >
+            </div>
+            <div class="mb-3">
+                <div class="d-flex justify-content-center">
+                    <label for="NewAnimalType">Or Enter New Animal Type</label>
+                </div>
+                <input type="text" asp-for="NewAnimalType" placeholder="Enter new animal type" class="w-100 form-control-lg border-0"/>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary rounded-3">Request</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('ImageUpload').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.getElementById('ImagePreview');
+                img.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+</script>

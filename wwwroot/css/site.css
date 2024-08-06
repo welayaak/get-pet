@@ -1,0 +1,68 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+/*
+primary: #756AB6
+secondary: 
+*/
+
+*,
+::before,
+::after{
+  box-sizing: border-box;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  background-color: #756AB6;
+  margin: 0;
+}
+
+
+
+.h-screen{
+  height: calc(100vh - 58px);
+}
+
+.text-pink{
+  color: #F1EAFF !important;
+}
+
+.background-primary{
+  background-color: #756AB6;
+}
+
+.scroll{
+  overflow-y: scroll;
+}
+.hover-light{
+  transition: all ease-in-out 0.3s;
+  outline: transparent;
+}
+.hover-light:hover{
+  /*background-color: #5E1675;*/
+  outline: 2px solid #5E1675;
+  border-radius: 20px;
+}
+
+.background-secondary{
+  background-color: #F1EAFF;
+}
+.text-dark-purple{
+  color: #5E1675;
+}

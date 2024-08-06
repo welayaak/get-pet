@@ -1,0 +1,35 @@
+﻿@model Pet_Get.Models.DTOs.AddForumDTO
+
+<div class="h-screen d-flex flex-column justify-content-center align-items-center">
+    <form asp-controller="Forum" asp-action="AddForum" method="post" enctype="multipart/form-data" class="form-control-lg background-secondary d-flex flex-column align-items-center w-75 text-dark-purple gap-2" style="padding: 50px; border-radius: 30px">
+        <div class="background-secondary mb-3 d-flex justify-content-center border border-secondary" style="width: 250px; height: 250px;">
+            <img id="ImagePreview" src="#" alt="Image Preview" style="width: 100%; height: auto;"/>
+        </div>
+        <div>
+            <input id="ImageUpload" type="file" name="image" asp-for="Image"/>
+        </div>
+        <div>
+            <input asp-for="Title" placeholder="Title" class="w-100 form-control-lg border-0"/>
+        </div>
+        <div>
+            <input asp-for="Description" placeholder="Description" class="w-100 form-control-lg border-0"/>
+        </div>
+        <div>
+            <button class="btn btn-primary">Add</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('ImageUpload').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.getElementById('ImagePreview');
+                img.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
